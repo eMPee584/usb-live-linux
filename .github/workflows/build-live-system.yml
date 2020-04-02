@@ -57,7 +57,7 @@ jobs:
     - name: release ISO
       uses: ncipollo/release-action@v1
       with:
-        artifacts: ${{env.ISO}}
+        artifacts: iso-images/${{env.ISO}}
         token: ${{ secrets.GITHUB_TOKEN }}
     - name: build IMG
       run: |
@@ -73,5 +73,5 @@ jobs:
     - name: release IMG
       uses: ncipollo/release-action@v1
       with:
-        artifacts: ${{env.IMG}}
+        artifacts: /mnt/${{env.IMG}}
         token: ${{ secrets.GITHUB_TOKEN }}
