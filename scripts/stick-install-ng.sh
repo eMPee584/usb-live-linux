@@ -93,7 +93,7 @@ round_int_to_next_multiple_of_16() {
 is_f2fs_mountable() {
     grep -qs f2fs /proc/filesystems && return 0
     lsmod|grep -qs f2fs  && return 0
-    modprobe -v f2fs || return 1
+    modprobe -v f2fs 2>/dev/null || return 1
 }
 
 # target DEVICE can be given as first parameter or interactively selected
@@ -265,8 +265,8 @@ time {
 }
 
 print_info "extracting kernel and init ramdisk from ISO to directly boot partition of type 0"
-iso-read -e live/vmlinuz -o ${EFIBOOT}/boot/vmlinuz -i ${LIVE_IMAGE}
-iso-read -e live/initrd.img -o ${EFIBOOT}/boot/initrd.img -i ${LIVE_IMAGE}
+# iso-read -e live/vmlinuz -o ${EFIBOOT}/boot/vmlinuz -i ${LIVE_IMAGE}
+# iso-read -e live/initrd.img -o ${EFIBOOT}/boot/initrd.img -i ${LIVE_IMAGE}
 
 # Variablen für download url's (hdt.iso , memtest.iso  ....)
 #URL_HDT_ISO=http://github.com/knightmare2600/hdt/blob/master/hdt-0.5.2.iso
