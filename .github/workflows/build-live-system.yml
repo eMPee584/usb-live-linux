@@ -5,8 +5,8 @@ on:
   # on every commit push: this is only meant temporary; too stressful for github infrastructure
   push:
   # every day at 23:42 UTC
-  schedule:
-    - cron: "42 23 * * *"
+  #schedule:
+    #- cron: "42 23 * * *"
 
 jobs:
   build:
@@ -35,11 +35,6 @@ jobs:
         #echo ::set-env name=ISO::$(cd iso-images; command ls -tr *.iso|tail -n 1)
         #echo ::set-env name=BUILDLOG::$(command ls build*.log)
         #df -h $(pwd) /mnt
-    #- name: publish ISO as artifact
-      #uses: actions/upload-artifact@v1
-      #with:
-        #name: ${{env.ISO}}
-        #path: iso-images/${{env.ISO}}
     #- name: publish build log as well
       #uses: actions/upload-artifact@v1
       #with:
@@ -51,6 +46,16 @@ jobs:
         echo foo > iso-images/foo.iso
         echo ::set-env name=ISO::$(cd iso-images; command ls -tr *.iso|tail -n 1)
         df -h $(pwd) /mnt
+    - name: publish ISO as artifact
+      uses: actions/upload-artifact@v1
+      with:
+        name: ${{env.ISO}}
+        path: iso-images/${{env.ISO}}
+    - name: release ISO
+      uses: ncipollo/release-action@v1
+      with:
+        artifacts: ${{env.ISO}}
+        token: ${{ secrets.GITHUB_TOKEN }}
     - name: build IMG
       run: |
         sudo pip3 install j2cli
@@ -62,3 +67,8 @@ jobs:
       with:
         name: ${{env.IMG}}
         path: /mnt/${{env.IMG}}
+    - name: release IMG
+      uses: ncipollo/release-action@v1
+      with:
+        artifacts: ${{env.IMG}}
+        token: ${{ secrets.GITHUB_TOKEN }}
