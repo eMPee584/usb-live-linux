@@ -58,7 +58,7 @@ jobs:
       run: |
         sudo pip3 install j2cli
         sudo bash -xv scripts/img-create-schulstick.sh iso-images/${{env.ISO}} "/mnt"
-        time pigz /mnt/*.img
+        sudo time pigz /mnt/*.img
         echo ::set-env name=IMG::$(cd /mnt; command ls -tr *.img|tail -n 1)
         echo ::set-env name=IMGGZ::$(cd /mnt; command ls -tr *.img.gz|tail -n 1)
         df -h $(pwd) /mnt
