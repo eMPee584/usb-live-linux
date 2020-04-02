@@ -222,7 +222,7 @@ trap_umount_persistencedirs() {
 trap_umount_partitions() {
     umount -v ${DEVICE}${p}1
     umount -v ${DEVICE}${p}2
-    is_f2fs_mountable && umount -v ${DEVICE}${p}3
+    ! is_f2fs_mountable || umount -v ${DEVICE}${p}3
 }
 
 # create a temporary directory to hold the mounts
@@ -343,10 +343,10 @@ command -v j2 || { print_warn "j2 jinja template tool not found; try installing 
 j2 variants/common_bootloader/grub.cfg.j2 > ${EFIBOOT}/boot/grub/grub.cfg
 
 print_info "copying bootloader background image — teh glorious FSFW merch!"
-cp -v features/config_fsfw_grub_theme/live-build-config/bootloaders/grub-pc/fsfw-background_640x480.png ${EFIBOOT}/boot/grub/ || true
+cp -v --preserve=timestamps features/config_fsfw_grub_theme/live-build-config/bootloaders/grub-pc/fsfw-background_640x480.png ${EFIBOOT}/boot/grub/ || true
 
 # copy the memdisk bootloader
-if [ ! -f ${EFIBOOT}/boot/memdisk ]; then cp -av /usr/lib/syslinux/memdisk ${EFIBOOT}/boot/memdisk ; fi || true
+if [ ! -f ${EFIBOOT}/boot/memdisk ]; then cp -v /usr/lib/syslinux/memdisk ${EFIBOOT}/boot/memdisk ; fi || true
 
 # init empty qemu EFI bios file so it can be hidden
 touch ${EFIBOOT}/NvVars
@@ -361,7 +361,7 @@ print_info "marking files on the EFI partition as hidden system files"
 print_info "(so it can better be used for data exchange with other systems)"
 fatattr +hs ${EFIBOOT}/* ${EFIBOOT}/.hidden
 
-cp -v variants/common_FAT_exchange_partition/LIESMICH.txt ${EFIBOOT}/
+cp -v --preserve=timestamps variants/common_FAT_exchange_partition/LIESMICH.txt ${EFIBOOT}/
 
 if is_f2fs_mountable
 then
