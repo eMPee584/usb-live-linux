@@ -343,7 +343,7 @@ command -v j2 || { print_warn "j2 jinja template tool not found; try installing 
 j2 variants/common_bootloader/grub.cfg.j2 > ${EFIBOOT}/boot/grub/grub.cfg
 
 print_info "copying bootloader background image — teh glorious FSFW merch!"
-cp -av features/config_fsfw_grub_theme/live-build-config/bootloaders/grub-pc/fsfw-background_640x480.png ${EFIBOOT}/boot/grub/ || true
+cp -v features/config_fsfw_grub_theme/live-build-config/bootloaders/grub-pc/fsfw-background_640x480.png ${EFIBOOT}/boot/grub/ || true
 
 # copy the memdisk bootloader
 if [ ! -f ${EFIBOOT}/boot/memdisk ]; then cp -av /usr/lib/syslinux/memdisk ${EFIBOOT}/boot/memdisk ; fi || true
@@ -361,7 +361,7 @@ print_info "marking files on the EFI partition as hidden system files"
 print_info "(so it can better be used for data exchange with other systems)"
 fatattr +hs ${EFIBOOT}/* ${EFIBOOT}/.hidden
 
-cp -av variants/common_FAT_exchange_partition/LIESMICH.txt ${EFIBOOT}/
+cp -v variants/common_FAT_exchange_partition/LIESMICH.txt ${EFIBOOT}/
 
 if is_f2fs_mountable
 then
