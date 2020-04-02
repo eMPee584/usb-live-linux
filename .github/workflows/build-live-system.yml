@@ -49,29 +49,26 @@ jobs:
         echo foo > iso-images/foo.iso
         echo ::set-env name=ISO::$(cd iso-images; command ls -tr *.iso|tail -n 1)
         df -h $(pwd) /mnt
-    - name: publish ISO as artifact
-      uses: actions/upload-artifact@v1
-      with:
-        name: ${{env.ISO}}
-        path: iso-images/${{env.ISO}}
-    - name: release ISO
-      uses: ncipollo/release-action@v1
-      with:
-        artifacts: iso-images/${{env.ISO}}
-        token: ${{ secrets.GITHUB_TOKEN }}
+    #- name: publish ISO as artifact
+      #uses: actions/upload-artifact@v1
+      #with:
+        #name: ${{env.ISO}}
+        #path: iso-images/${{env.ISO}}
     - name: build IMG
       run: |
         sudo pip3 install j2cli
         sudo bash -xv scripts/img-create-schulstick.sh iso-images/${{env.ISO}} "/mnt"
+        time pigz /mnt/*.img
         echo ::set-env name=IMG::$(cd /mnt; command ls -tr *.img|tail -n 1)
+        echo ::set-env name=IMGGZ::$(cd /mnt; command ls -tr *.img.gz|tail -n 1)
         df -h $(pwd) /mnt
-    - name: publish IMG as artifact
-      uses: actions/upload-artifact@v1
-      with:
-        name: ${{env.IMG}}
-        path: /mnt/${{env.IMG}}
-    - name: release IMG
+    #- name: publish IMG as artifact
+      #uses: actions/upload-artifact@v1
+      #with:
+        #name: ${{env.IMG}}
+        #path: /mnt/${{env.IMG}}
+    - name: release ISO and IMG
       uses: ncipollo/release-action@v1
       with:
-        artifacts: /mnt/${{env.IMG}}
+        artifacts: iso-images/${{env.ISO}},/mnt/${{env.IMG}}
         token: ${{ secrets.GITHUB_TOKEN }}
