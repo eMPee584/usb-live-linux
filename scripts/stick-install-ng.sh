@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/bin/bash -xv
 # next-generation live stick installation script
 # BETA status
 # Kein Backup
@@ -343,10 +343,10 @@ command -v j2 || { print_warn "j2 jinja template tool not found; try installing 
 j2 variants/common_bootloader/grub.cfg.j2 > ${EFIBOOT}/boot/grub/grub.cfg
 
 print_info "copying bootloader background image — teh glorious FSFW merch!"
-cp -av features/config_fsfw_grub_theme/live-build-config/bootloaders/grub-pc/fsfw-background_640x480.png ${EFIBOOT}/boot/grub/
+cp -av features/config_fsfw_grub_theme/live-build-config/bootloaders/grub-pc/fsfw-background_640x480.png ${EFIBOOT}/boot/grub/ || true
 
 # copy the memdisk bootloader
-if [ ! -f ${EFIBOOT}/boot/memdisk ]; then cp -av /usr/lib/syslinux/memdisk ${EFIBOOT}/boot/memdisk ; fi
+if [ ! -f ${EFIBOOT}/boot/memdisk ]; then cp -av /usr/lib/syslinux/memdisk ${EFIBOOT}/boot/memdisk ; fi || true
 
 # init empty qemu EFI bios file so it can be hidden
 touch ${EFIBOOT}/NvVars
