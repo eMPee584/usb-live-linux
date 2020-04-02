@@ -4,6 +4,9 @@ name: build-FSFW-Schulstick-ISO
 on:
   # on every commit push: this is only meant temporary; too stressful for github infrastructure
   push:
+    tags:
+      - '*'
+
   # every day at 23:42 UTC
   #schedule:
     #- cron: "42 23 * * *"
