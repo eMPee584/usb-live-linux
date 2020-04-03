@@ -2,7 +2,7 @@ name: build-FSFW-Schulstick-ISO
 
 # when to trigger building
 on:
-  # on every commit push: this is only meant temporary; too stressful for github infrastructure
+  # publish when a release is tagged
   push:
     tags:
       - '*'
@@ -12,15 +12,28 @@ on:
     #- cron: "42 23 * * *"
 
 jobs:
-  build:
+  summon:
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v2
     - name: set up build prerequisites
       run: |
+        echo "deb http://ftp.debian.org/debian stable main" | sudo tee /etc/apt/sources.list.d/debian-stable.list
+        sudo apt-key adv --keyserver keyserver.ubuntu.com --recv-keys 04EE7237B7D453EC 648ACFD622F3D138 DCC9EFBF77E11517
+        sudo apt update
+        #sudo apt list --upgradable
+        {
+          echo "Package: *"
+          echo "Pin: release a=stable, o=Debian"
+          echo "Pin-Priority: 1110"
+        } | sudo tee /etc/apt/preferences.d/debian-stable
+        sudo mkdir -pv /etc/dpkg/dpkg.cfg.d
+        echo "force-overwrite" | sudo tee /etc/dpkg/dpkg.cfg.d/force-overwrite
+  
+        apt-cache policy grub-efi-amd64-bin grub-efi-amd64-signed shim-helpers-amd64-signed shim-unsigned shim-signed:amd64 squashfs-tools
+        time sudo apt --allow-downgrades --verbose-versions install debootstrap rsync pandoc debian-archive-keyring pigz python3-pip grub-pc-bin grub-efi-amd64-bin grub-efi-amd64-signed grub-efi-ia32-bin shim-signed grub-rescue-pc syslinux-common parted fatattr dosfstools f2fs-tools libcdio-utils dialog ccze
         wget http://archive.ubuntu.com/ubuntu/pool/main/s/squashfs-tools/squashfs-tools_4.4-1_amd64.deb
         sudo dpkg -i *.deb
-        sudo apt install debootstrap rsync pandoc debian-archive-keyring pigz python3-pip grub-pc-bin grub-efi-ia32-bin shim-signed syslinux-common parted fatattr dosfstools f2fs-tools libcdio-utils dialog ccze
         #git clone https://salsa.debian.org/live-team/live-build.git
         #cd live-build
         #sed -i 's/comp xz/comp zstd/' scripts/build/binary_rootfs
@@ -47,6 +60,7 @@ jobs:
       run: |
         mkdir -pv iso-images
         echo foo > iso-images/foo.iso
+	cp -av /usr/lib/grub-rescue/grub-rescue-cdrom.iso iso-images/foo.iso
         echo ::set-env name=ISO::$(cd iso-images; command ls -tr *.iso|tail -n 1)
         df -h $(pwd) /mnt
     #- name: publish ISO as artifact
