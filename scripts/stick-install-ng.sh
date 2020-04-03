@@ -259,7 +259,7 @@ time {
     grub-install --target=i386-pc --no-floppy --force --removable --root-directory=${EFIBOOT} ${DEVICE}
     grub-install --target=i386-efi --uefi-secure-boot --no-nvram --recheck --removable --efi-directory=${EFIBOOT} --root-directory=${EFIBOOT}
     # --uefi-secure-boot is default btw
-    apt policy grub2-common | grep -qs "ubuntu" && FORCE_EXTRA= || FORCE_EXTRA="--force-extra-removable"
+    dpkg-query --show grub2-common | grep -qs "ubuntu" && FORCE_EXTRA= || FORCE_EXTRA="--force-extra-removable"
     grub-install --target=x86_64-efi --uefi-secure-boot --no-nvram ${FORCE_EXTRA} --efi-directory=${EFIBOOT} --root-directory=${EFIBOOT}
     sync ${EFIBOOT}
 }
