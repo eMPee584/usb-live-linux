@@ -29,7 +29,6 @@ jobs:
         } | sudo tee /etc/apt/preferences.d/debian-stable
         sudo mkdir -pv /etc/dpkg/dpkg.cfg.d
         echo "force-overwrite" | sudo tee /etc/dpkg/dpkg.cfg.d/force-overwrite
-  
         apt-cache policy grub-efi-amd64-bin grub-efi-amd64-signed shim-helpers-amd64-signed shim-unsigned shim-signed:amd64 squashfs-tools
         time sudo apt --allow-downgrades --verbose-versions install debootstrap rsync pandoc debian-archive-keyring pigz python3-pip grub-pc-bin grub-efi-amd64-bin grub-efi-amd64-signed grub-efi-ia32-bin shim-signed grub-rescue-pc syslinux-common parted fatattr dosfstools f2fs-tools libcdio-utils dialog ccze
         wget http://archive.ubuntu.com/ubuntu/pool/main/s/squashfs-tools/squashfs-tools_4.4-1_amd64.deb
@@ -60,7 +59,7 @@ jobs:
       run: |
         mkdir -pv iso-images
         echo foo > iso-images/foo.iso
-	cp -av /usr/lib/grub-rescue/grub-rescue-cdrom.iso iso-images/foo.iso
+        cp -av /usr/lib/grub-rescue/grub-rescue-cdrom.iso iso-images/foo.iso
         echo ::set-env name=ISO::$(cd iso-images; command ls -tr *.iso|tail -n 1)
         df -h $(pwd) /mnt
     #- name: publish ISO as artifact
