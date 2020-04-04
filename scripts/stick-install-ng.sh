@@ -267,8 +267,8 @@ time {
 }
 
 print_info "extracting kernel and init ramdisk from ISO to directly boot partition of type 0"
-iso-read -e live/vmlinuz -o ${EFIBOOT}/boot/vmlinuz -i ${LIVE_IMAGE}
-iso-read -e live/initrd.img -o ${EFIBOOT}/boot/initrd.img -i ${LIVE_IMAGE}
+iso-read -e live/vmlinuz -o ${EFIBOOT}/boot/vmlinuz -i ${LIVE_IMAGE} || true
+iso-read -e live/initrd.img -o ${EFIBOOT}/boot/initrd.img -i ${LIVE_IMAGE} || true
 
 # Variablen für download url's (hdt.iso , memtest.iso  ....)
 #URL_HDT_ISO=http://github.com/knightmare2600/hdt/blob/master/hdt-0.5.2.iso
