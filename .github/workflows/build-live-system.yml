@@ -27,8 +27,9 @@ jobs:
           echo "Pin: release a=stable, o=Debian"
           echo "Pin-Priority: 1110"
         } | sudo tee /etc/apt/preferences.d/debian-stable
-        sudo mkdir -pv /etc/dpkg/dpkg.cfg.d
-        echo "force-overwrite" | sudo tee /etc/dpkg/dpkg.cfg.d/force-overwrite
+        #sudo mkdir -pv /etc/dpkg/dpkg.cfg.d
+        #echo "force-overwrite" | sudo tee /etc/dpkg/dpkg.cfg.d/force-overwrite
+        sudo dpkg --remove shim-signed shim-helpers-amd64-signed shim-unsigned shim-signed:amd64
         apt-cache policy grub-efi-amd64-bin grub-efi-amd64-signed shim-helpers-amd64-signed shim-unsigned shim-signed:amd64 squashfs-tools
         time sudo apt --allow-downgrades --verbose-versions install debootstrap rsync pandoc debian-archive-keyring pigz python3-pip grub-pc-bin grub-efi-amd64-bin grub-efi-amd64-signed grub-efi-ia32-bin shim-signed grub-rescue-pc syslinux-common parted fatattr dosfstools f2fs-tools libcdio-utils dialog ccze
         wget http://archive.ubuntu.com/ubuntu/pool/main/s/squashfs-tools/squashfs-tools_4.4-1_amd64.deb
