@@ -44,28 +44,28 @@
 
 ##  Education - Science  --  Bildung und Wissenschaft
 
-- ### :x:  texlive  -- [LaTex Toolbox](../common_package-lists/texlive.md)  - Dokumenten Satzprogramm
+- ### :o:  texlive  -- [LaTex Toolbox](../common_package-lists/texlive.md)  - Dokumenten Satzprogramm
 
-- ### :x:  science  -- [Wissenschaft](../common_package-lists/science.md) - Literaturverwaltung - social-science
+- ### :o:  science  -- [Wissenschaft](../common_package-lists/science.md) - Literaturverwaltung - social-science
 
-- ### :x:  mathematics  --  [Mathematiksoftware für die Lehre](../common_package-lists/mathematics.md) -
+- ### :o:  mathematics  --  [Mathematiksoftware für die Lehre](../common_package-lists/mathematics.md) -
 
-- ### :x:  python-scientific  --  [Python](../common_package-lists/python-scientific.md) - für wissenschaftliches Arbeiten
+- ### :o:  python-scientific  --  [Python](../common_package-lists/python-scientific.md) - für wissenschaftliches Arbeiten
 
-- ### :x:  statistik  --  [Statistik Programme](../common_package-lists/statistik.md) - für statistische Berechnungen und Grafiken
+- ### :o:  statistik  --  [Statistik Programme](../common_package-lists/statistik.md) - für statistische Berechnungen und Grafiken
 
-- ### :x:  education  -- [Programme fürs Lernen](../common_package-lists/education.md) - Sprache - languages - chemistry - geography - astronomy
+- ### :o:  education  -- [Programme fürs Lernen](../common_package-lists/education.md) - Sprache - languages - chemistry - geography - astronomy
 
-- ### :x:  electronics  -- [Elektronik](../common_package-lists/electronics.md) - Schaltplanentwurf - Schaltungssimulation - Funksignalverarbeitung - Logic analyzer und protocol decoder software
+- ### :o:  electronics  -- [Elektronik](../common_package-lists/electronics.md) - Schaltplanentwurf - Schaltungssimulation - Funksignalverarbeitung - Logic analyzer und protocol decoder software
 
 
 ##  Programmierung Softwareentwicklung  --
 
-- ### :x:  programmiersprache  -- [Programmiersprachen](../common_package-lists/programmiersprache.md) - PHP - Java
+- ### :o:  programmiersprache  -- [Programmiersprachen](../common_package-lists/programmiersprache.md) - PHP - Java
 
-- ### :x:  programmieren-tools  -- [Tools fürs Programmieren](../common_package-lists/programmieren-tools.md) - Compiler - Tools - Revisions-Kontroll-Systeme - UML-Tools
+- ### :o:  programmieren-tools  -- [Tools fürs Programmieren](../common_package-lists/programmieren-tools.md) - Compiler - Tools - Revisions-Kontroll-Systeme - UML-Tools
 
-- ### :x:  programmieren-ide  --  [Programmier IDEs](../common_package-lists/programmieren-ide.md) - Editoren - Programmierumgebungen - Java - arduino - scratch
+- ### :o:  programmieren-ide  --  [Programmier IDEs](../common_package-lists/programmieren-ide.md) - Editoren - Programmierumgebungen - Java - arduino - scratch
 
 
 ##  Terminal Tools  --

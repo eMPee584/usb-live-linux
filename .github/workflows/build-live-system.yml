@@ -73,6 +73,15 @@ jobs:
         echo ::set-env name=ISO::$(cd iso-images; command ls -tr *.iso|tail -n 1)
         echo ::set-env name=BUILDLOG::$(command ls build*.log)
         df -h $(pwd) /mnt
+    - name: release ISO
+      uses: ncipollo/release-action@v1
+      with:
+        artifacts: iso-images/${{env.ISO}}
+        token: ${{ secrets.GITHUB_TOKEN }}
+        draft: true
+        #name: ''
+        prerelease: true
+        allowUpdates: true
     - name: store build log as job artifact
       uses: actions/upload-artifact@v1
       with:
@@ -115,10 +124,10 @@ jobs:
       #with:
         #name: ${{env.IMG}}
         #path: /mnt/${{env.IMG}}
-    - name: release ISO and IMG
+    - name: release IMG
       uses: ncipollo/release-action@v1
       with:
-        artifacts: iso-images/${{env.ISO}},${{env.IMG}}.gz
+        artifacts: ${{env.IMG}}.gz
         token: ${{ secrets.GITHUB_TOKEN }}
         draft: true
         #name: ''
