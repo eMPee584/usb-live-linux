@@ -18,7 +18,7 @@ jobs:
     # this gives live ssh debugging capability
     - name: get some tools
       run: |
-        sudo apt get speedometer iotop iftop fatrace ranger ncdu nmon
+        sudo apt install speedometer iotop iftop fatrace ranger ncdu nmon
     - name: Setup tmate session
       uses: mxschmitt/action-tmate@v2
     - uses: actions/checkout@v2
