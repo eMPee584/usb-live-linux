@@ -15,33 +15,47 @@ jobs:
   summon:
     runs-on: ubuntu-latest
     steps:
+    # this gives live ssh debugging capability
+    - name: get some tools
+      run: |
+        sudo apt get speedometer iotop iftop fatrace ranger ncdu nmon
     - name: Setup tmate session
       uses: mxschmitt/action-tmate@v2
     - uses: actions/checkout@v2
-    - name: set up build prerequisites
+    - name: set up build prerequisites (i.e. beat the ubuntu with a bent spoon)
       run: |
+        # add debian repo, fetch keys and update apt database
         echo "deb http://ftp.debian.org/debian stable main" | sudo tee /etc/apt/sources.list.d/debian-stable.list
         sudo apt-key adv --keyserver keyserver.ubuntu.com --recv-keys 04EE7237B7D453EC 648ACFD622F3D138 DCC9EFBF77E11517
         sudo apt update
-        #sudo apt list --upgradable
+
+        # give debian stable repo highest priority
         {
           echo "Package: *"
           echo "Pin: release a=stable, o=Debian"
           echo "Pin-Priority: 1110"
         } | sudo tee /etc/apt/preferences.d/debian-stable
+
         #sudo mkdir -pv /etc/dpkg/dpkg.cfg.d
         #echo "force-overwrite" | sudo tee /etc/dpkg/dpkg.cfg.d/force-overwrite
+
+        # kill the ubuntu grub stuff
         sudo dpkg --remove shim-signed shim-helpers-amd64-signed shim-unsigned shim-signed:amd64
         apt-cache policy grub-efi-amd64-bin grub-efi-amd64-signed shim-helpers-amd64-signed shim-unsigned shim-signed:amd64 squashfs-tools
+
+        # get all the grub packages from debian
         time sudo apt --allow-downgrades --verbose-versions install debootstrap rsync pandoc debian-archive-keyring pigz python3-pip grub-pc-bin grub-efi-amd64-bin grub-efi-amd64-signed grub-efi-ia32-bin shim-signed grub-rescue-pc syslinux-common parted fatattr dosfstools f2fs-tools libcdio-utils dialog ccze
+
+        # install a mksquashfs with zstd capability
         wget http://archive.ubuntu.com/ubuntu/pool/main/s/squashfs-tools/squashfs-tools_4.4-1_amd64.deb
         sudo dpkg -i *.deb
+
+        # get the fresh live-build magic
         git clone https://salsa.debian.org/live-team/live-build.git
         cd live-build
+        # unlock zstd mksquashfs power
         sed -i 's/comp xz/comp zstd/' scripts/build/binary_rootfs
         sudo make install
-        # this worked?
-        grep "comp" /usr/lib/live/build/binary_rootfs
     - name: nuke free some storage space in container
       run: |
         sudo swapoff /swapfile && sudo rm /swapfile
@@ -76,12 +90,24 @@ jobs:
       #with:
         #name: ${{env.ISO}}
         #path: iso-images/${{env.ISO}}
-    - name: build IMG
+    - name: glue up IMG
       run: |
+        # need the j2 command to process the grub.cfg.j2
         sudo pip3 install j2cli
+
+        # this should produce a special crafted USB stick image in /mnt
         sudo bash -xv scripts/img-create-schulstick.sh iso-images/${{env.ISO}} "/mnt"
+
+        # get the image name
+        IMG=$(cd /mnt; command ls -tr *.img|tail -n 1)
+        # also, export the ISO file name to job env
         echo ::set-env name=IMG::$(cd /mnt; command ls -tr *.img|tail -n 1)
-        sudo time pigz /mnt/*.img
+
+        # we want more space for shunting
+        sudo rm -rf chroot
+
+        # now multi-core gzip the image to create the release product
+        sudo time pigz --stdout < /mnt/${IMG} > ${IMG}.gz
         echo ::set-env name=IMGGZ::$(cd /mnt; command ls -tr *.img.gz|tail -n 1)
         df -h $(pwd) /mnt
     #- name: store IMG as job artifact
