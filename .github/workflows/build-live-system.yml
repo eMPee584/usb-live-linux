@@ -118,7 +118,7 @@ jobs:
     - name: release ISO and IMG
       uses: ncipollo/release-action@v1
       with:
-        artifacts: iso-images/${{env.ISO}},/mnt/${{env.IMG}},${{env.IMG}}.gz
+        artifacts: iso-images/${{env.ISO}},${{env.IMG}}.gz
         token: ${{ secrets.GITHUB_TOKEN }}
         draft: true
         #name: ''
