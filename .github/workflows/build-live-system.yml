@@ -47,6 +47,12 @@ jobs:
         sudo swapoff /swapfile && sudo rm /swapfile
         sudo rm -rf /usr/share/dotnet /usr/local/lib/android /opt/ghc
         df -h $(pwd) /mnt
+    - name: cache the packages
+      id: cache-packages
+      uses: actions/cache@v1
+      with:
+        path: cache
+        key: ${{ runner.os }}.packages.cache
     - name: build ISO
       run: |
         sudo bash -xv scripts/build-live-system.sh FSFW-Schulstick
