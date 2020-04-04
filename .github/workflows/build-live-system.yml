@@ -15,6 +15,8 @@ jobs:
   summon:
     runs-on: ubuntu-latest
     steps:
+    - name: Setup tmate session
+      uses: mxschmitt/action-tmate@v2
     - uses: actions/checkout@v2
     - name: set up build prerequisites
       run: |
@@ -40,18 +42,18 @@ jobs:
         sudo make install
         # this worked?
         grep "comp" /usr/lib/live/build/binary_rootfs
-    #- name: nuke free some storage space in container
-      #run: |
-        ## sudo swapoff /swapfile && sudo rm /swapfile
-        #sudo rm -rf /usr/share/dotnet /usr/local/lib/android /opt/ghc
-        #df -h $(pwd)
+    - name: nuke free some storage space in container
+      run: |
+        sudo swapoff /swapfile && sudo rm /swapfile
+        sudo rm -rf /usr/share/dotnet /usr/local/lib/android /opt/ghc
+        df -h $(pwd) /mnt
     - name: build ISO
       run: |
         sudo bash -xv scripts/build-live-system.sh FSFW-Schulstick
         echo ::set-env name=ISO::$(cd iso-images; command ls -tr *.iso|tail -n 1)
         echo ::set-env name=BUILDLOG::$(command ls build*.log)
         df -h $(pwd) /mnt
-    - name: publish build log as well
+    - name: store build log as job artifact
       uses: actions/upload-artifact@v1
       with:
         name: build.log
@@ -63,7 +65,7 @@ jobs:
         #cp -av /usr/lib/grub-rescue/grub-rescue-cdrom.iso iso-images/foo.iso
         #echo ::set-env name=ISO::$(cd iso-images; command ls -tr *.iso|tail -n 1)
         #df -h $(pwd) /mnt
-    #- name: publish ISO as artifact
+    #- name: store ISO as job artifact
       #uses: actions/upload-artifact@v1
       #with:
         #name: ${{env.ISO}}
@@ -76,7 +78,7 @@ jobs:
         sudo time pigz /mnt/*.img
         echo ::set-env name=IMGGZ::$(cd /mnt; command ls -tr *.img.gz|tail -n 1)
         df -h $(pwd) /mnt
-    #- name: publish IMG as artifact
+    #- name: store IMG as job artifact
       #uses: actions/upload-artifact@v1
       #with:
         #name: ${{env.IMG}}
@@ -87,6 +89,6 @@ jobs:
         artifacts: iso-images/${{env.ISO}},/mnt/${{env.IMG}},/mnt/${{env.IMGGZ}}
         token: ${{ secrets.GITHUB_TOKEN }}
         draft: true
-        name: 'maybe-build'
+        #name: ''
         prerelease: true
         allowUpdates: true
