@@ -108,7 +108,7 @@ jobs:
 
         # now multi-core gzip the image to create the release product
         sudo time pigz --stdout < /mnt/${IMG} > ${IMG}.gz
-        echo ::set-env name=IMGGZ::$(cd /mnt; command ls -tr *.img.gz|tail -n 1)
+        ls -lah . /mnt
         df -h $(pwd) /mnt
     #- name: store IMG as job artifact
       #uses: actions/upload-artifact@v1
@@ -118,7 +118,7 @@ jobs:
     - name: release ISO and IMG
       uses: ncipollo/release-action@v1
       with:
-        artifacts: iso-images/${{env.ISO}},/mnt/${{env.IMG}},/mnt/${{env.IMGGZ}}
+        artifacts: iso-images/${{env.ISO}},/mnt/${{env.IMG}},${{env.IMG}}.gz
         token: ${{ secrets.GITHUB_TOKEN }}
         draft: true
         #name: ''
