@@ -1,2 +1,2 @@
 # Variants / Features Table
-![](./features.svg)
+![](./features2.svg)
