@@ -33,7 +33,7 @@
        height="10"
        x="42.618969"
        y="113.71255" />
-     <foreignObject>
+     <foreignObject width="100" height="200">
         <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
         <body>
         <iframe src="https://raw.githubusercontent.com/eMPee584/usb-live-linux/master/variants/features.html" style="border: solid 1px red" />
