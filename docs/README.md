@@ -5,13 +5,13 @@ This is the home of our modular, [Debian](https://debian.org)-based [live](https
 With this project, we want to provide anyone with a portable and robust computing environment, abundant in possibilities and comfortable to use. It works independently from any installed operating system as it includes a whole software stack ready-to-use, from the [Linux Operating System kernel](https://en.wikipedia.org/wiki/Linux_kernel) to graphical applications for most common tasks.
 
 **Screenshot 2021 Stick, showing some applications (2021-02-10):**
-![Screenshot 2021 Stick, showing some applications (2021-02-10)](doc/screenshot_applications_2021-02-18.png "Screenshot 2021 Stick, showing some applications (2021-02-10)")
+![Screenshot 2021 Stick, showing some applications (2021-02-10)](docs/screenshot_applications_2021-02-18.png "Screenshot 2021 Stick, showing some applications (2021-02-10)")
 
 **Screenshot 2021 Stick with Anmerkungen (2021-02-10):**
-![Screenshot 2021 Stick with Anmerkungen (2021-02-10)](doc/screenshot-Xfce-Desktop-2021-02-10.png "Screenshot 2021 Stick with Anmerkungen (2021-02-10)")
+![Screenshot 2021 Stick with Anmerkungen (2021-02-10)](docs/screenshot-Xfce-Desktop-2021-02-10.png "Screenshot 2021 Stick with Anmerkungen (2021-02-10)")
 
 **Screenshot FSFW-Schulstick (2020-04-01):**
-![Screenshot FSFW-Schulstick with Xfce Desktop (2020-04-01)](doc/screenshot-Xfce-Desktop-2020-04-01.png "Screenshot FSFW-Schulstick with Xfce Desktop (2020-04-01)")
+![Screenshot FSFW-Schulstick with Xfce Desktop (2020-04-01)](docs/screenshot-Xfce-Desktop-2020-04-01.png "Screenshot FSFW-Schulstick with Xfce Desktop (2020-04-01)")
 
 ## Structure and Development
 This repository contains shell scripts to create a live-system from a nested tree of feature configuration fragments. These are being fed to Debian's [live-build](https://salsa.debian.org/live-team/live-build) tool, which assembles an ISO file that is then installed into an image. Using appropriate tools, this final image is than to be transferred to an USB flash drive.
@@ -38,17 +38,17 @@ Momentan (Mai 2019) wird noch das Tool  *live-build* benutzt. Mittelfristig ist 
 
 ## (2018-08)
 **Screenshot vom Desktop (2018-08-18):**
-![Screenshot](doc/screenshot-KDE-Desktop-2018-08-18.png "Screenshot")
+![Screenshot](docs/screenshot-KDE-Desktop-2018-08-18.png "Screenshot")
 
 # Weitere Infos:
 Aktuelle Informationen (u.a. zur Verteilung vor Ort in Dresden) unter: [https://fsfw-dresden.de/uni-stick](https://fsfw-dresden.de/uni-stick).
 
 ## Benutzer.innen Doku:
-* [doc/dist/index.md](doc/dist/index.md): Welche Programme sind dabei und wozu sind die gut?
+* [docs/dist/index.md](docs/dist/index.md): Welche Programme sind dabei und wozu sind die gut?
 * [scripts/README.md](scripts/README.md): Erstellen eines bootfähigen USB-Sticks mit dem Live-Image
 
 ## Entwickler.innen Doku:
 * [CONTRIBUTING.md](CONTRIBUTING.md)
-* [doc/Developing-README.md](doc/Developing-README.md)
-* [doc/Developing-CHECKLIST.md](doc/Developing-CHECKLIST.md)
-* [doc/Developing-TODO.md](doc/Developing-TODO.md)
+* [docs/Developing-README.md](docs/Developing-README.md)
+* [docs/Developing-CHECKLIST.md](docs/Developing-CHECKLIST.md)
+* [docs/Developing-TODO.md](docs/Developing-TODO.md)
