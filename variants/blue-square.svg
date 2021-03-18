@@ -33,7 +33,8 @@
        height="10"
        x="42.618969"
        y="113.71255" />
-     <foreignObject width="100" height="200" x="0" y="0">
+  </g>
+     <foreignObject width="1000" height="800" x="0" y="0">
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
 <head>
 <meta http-equiv="Content-Type" content="application/xhtml+xml; charset=UTF-8" />
@@ -3620,5 +3621,4 @@ Last updated
 </body>
 </html>
      </foreignObject>
-  </g>
 </svg>
