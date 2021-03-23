@@ -39,7 +39,7 @@
           <meta http-equiv="X-Content-Security-Policy" content="frame-src 'self'"></meta>
         </head>
         <body style="background-color: cyan">
-        <iframe src="https://gitcdn.link/repo/eMPee584/usb-live-linux/master/variants/features.html" style="border: solid 1px red" />
+        <iframe src="https://gitcdn.link/repo/eMPee584/usb-live-linux/master/variants/features.html" width="1000" height="2000" style="border: solid 1px red" />
         </body>
         </html>
      </foreignObject>
